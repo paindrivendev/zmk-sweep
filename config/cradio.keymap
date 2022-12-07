@@ -64,7 +64,7 @@
               &kp EXCL &kp AT    &kp HASH &kp DOLLAR &kp PERCENT                &kp CARET &kp AMPERSAND &kp ASTERISK  &kp PIPE &kp BACKSLASH
               &kp TILDE    &kp GRAVE    &kp KP_PLUS    &kp UNDER    &trans              &kp LPAR    &kp LBKT    &kp LBRC    &kp SQT    &kp DQT  
               &kp EQUAL    &kp KP_PLUS    &kp KP_MINUS    &trans    &trans            &kp RPAR    &kp RBKT    &kp RBRC    &kp UNDER    &kp KP_MINUS  
-                                               &kp GRAVE   &kp TILDE            &kp UNDER    &kp KP_PLUS  
+                                               &bt BT_CLR   &kp TILDE            &kp UNDER    &kp KP_PLUS  
 		>;
 		};	
 		
