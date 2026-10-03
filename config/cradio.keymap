@@ -7,6 +7,12 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <behaviors/unicode.dtsi>
+
+// Unicode input mode at boot. Switch at runtime with INTL+L / INTL+M / INTL+W.
+&uc {
+    default-mode = <UC_MODE_LINUX>;
+};
 
 / { 
     combos {
@@ -33,6 +39,7 @@
 #define SYMBOL 2
 #define ARROW 3
 #define TMUX 4
+#define INTL 5
 
     keymap {
         compatible = "zmk,keymap";
@@ -41,7 +48,7 @@
 // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
 // │  Q  │  W  │  E  │  R  │  T  │   │  Y  │  U  │  I  │  O  │  P  │
 // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-// │  A  │S TMX│D NUM│F ARR│  G  │   │  H  │  J  │  K  │  L  │  ;  │
+// │  A  │S TMX│D NUM│F ARR│G INT│   │H INT│  J  │  K  │  L  │  ;  │
 // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
 // │Z SFT│  X  │  C  │  V  │  B  │   │  N  │  M  │  ,  │  .  │/ SFT│
 // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
@@ -50,7 +57,7 @@
 //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
                 &kp Q         &kp W         &kp E           &kp R           &kp T       &kp Y         &kp U         &kp I         &kp O         &kp P
-                &kp A         &lt TMUX S    &lt NUMBER D   &lt ARROW F    &kp G       &kp H         &kp J         &kp K         &kp L         &kp SEMICOLON
+                &kp A         &lt TMUX S    &lt NUMBER D   &lt ARROW F    &lt INTL G  &lt INTL H    &kp J         &kp K         &kp L         &kp SEMICOLON
                 &mt LSFT Z    &kp X         &kp C           &kp V           &kp B       &kp N         &kp M         &kp COMMA     &kp DOT       &mt LSFT SLASH
                                                             &mt LALT ESC    &lt SYMBOL SPACE   &lt SYMBOL ENTER   &mt LCTRL BSPC
             >;
@@ -58,18 +65,18 @@
 
         number_layer {
 // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
-// │     │     │     │     │     │   │     │  7  │  8  │  9  │     │
+// │ F1  │ F2  │     │ F3  │ F4  │   │     │  7  │  8  │  9  │     │
 // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-// │     │     │     │     │     │   │     │  4  │  5  │  6  │     │
+// │ F5  │ F6  │(HLD)│ F7  │ F8  │   │     │  4  │  5  │  6  │     │
 // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-// │     │     │     │     │     │   │     │  1  │  2  │  3  │     │
+// │ F9  │ F10 │     │ F11 │ F12 │   │     │  1  │  2  │  3  │     │
 // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
 //                   │     │     │   │  0  │     │
 //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
-                &trans        &trans        &trans          &trans          &trans      &trans        &kp N7        &kp N8        &kp N9        &trans     
-                &trans        &trans        &trans          &trans          &trans      &trans        &kp N4        &kp N5        &kp N6        &trans 
-                &trans        &trans        &trans          &trans          &trans      &trans        &kp N1        &kp N2        &kp N3        &trans
+                &kp F1        &kp F2        &trans          &kp F3          &kp F4      &trans        &kp N7        &kp N8        &kp N9        &trans     
+                &kp F5        &kp F6        &trans          &kp F7          &kp F8      &trans        &kp N4        &kp N5        &kp N6        &trans 
+                &kp F9        &kp F10       &trans          &kp F11         &kp F12     &trans        &kp N1        &kp N2        &kp N3        &trans
                                                             &trans          &trans      &kp N0        &trans 
             >;
         };
@@ -94,19 +101,19 @@
         
         arrow_layer {
 // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
-// │     │     │     │     │RESET│   │BTCLR│BTALL│BTNXT│BTPRV│     │
+// │PREV │PLAY │NEXT │     │RESET│   │BTCLR│BTALL│BTNXT│BTPRV│ BT4 │
 // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-// │     │     │     │     │     │   │     │  ←  │  ↓  │  ↑  │  →  │
+// │MUTE │VOL- │VOL+ │(HLD)│     │   │     │  ←  │  ↓  │  ↑  │  →  │
 // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-// │     │     │     │     │     │   │     │ BT0 │ BT1 │     │     │
+// │HOME │ END │     │     │     │   │     │ BT0 │ BT1 │ BT2 │ BT3 │
 // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
-//                   │     │     │   │     │     │
+//                   │     │     │   │PGDN │PGUP │
 //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
-                &trans        &trans        &trans          &trans          &sys_reset     &bt BT_CLR    &bt BT_CLR_ALL &bt BT_NXT   &bt BT_PRV    &trans     
-                &trans        &trans        &trans          &trans          &trans         &trans        &kp LEFT      &kp DOWN     &kp UP        &kp RIGHT  
-                &trans        &trans        &trans          &trans          &trans         &trans        &bt BT_SEL 0  &bt BT_SEL 1 &trans        &trans
-                                                            &trans          &trans         &trans        &trans  
+                &kp C_PREV    &kp C_PP      &kp C_NEXT      &trans          &sys_reset     &bt BT_CLR    &bt BT_CLR_ALL &bt BT_NXT   &bt BT_PRV    &bt BT_SEL 4
+                &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP    &trans          &trans         &trans        &kp LEFT      &kp DOWN     &kp UP        &kp RIGHT  
+                &kp HOME      &kp END       &trans          &trans          &trans         &trans        &bt BT_SEL 0  &bt BT_SEL 1 &bt BT_SEL 2  &bt BT_SEL 3
+                                                            &trans          &trans         &kp PG_DN     &kp PG_UP  
             >;
         };    
 
@@ -127,5 +134,25 @@
                                                             &trans          &trans         &trans        &trans  
             >;
         };    
+
+        intl_layer {
+// Hold G for right-hand letters, hold H for left-hand letters. Shift = uppercase.
+// Z and / stay Shift (trans). L/M/W pick the unicode mode: Linux/macOS/Windows.
+// ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
+// │     │ WIN │  €  │     │  ₺  │   │     │ ü Ü │ ı İ │ ö Ö │     │
+// ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+// │ ä Ä │ ş Ş │     │     │ ğ Ğ │   │     │     │     │LINUX│     │
+// ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+// │ SFT │     │ ç Ç │     │ ß ẞ │   │     │ MAC │     │     │ SFT │
+// └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
+//                   │     │     │   │     │     │
+//                   └─────┴─────┘   └─────┴─────┘
+            bindings = <
+                &trans        &uc UC_SET_WIN_COMPOSE &uc 0x20AC 0 &trans    &uc 0x20BA 0   &trans        &uc 0xFC 0xDC &uc 0x131 0x130 &uc 0xF6 0xD6 &trans
+                &uc 0xE4 0xC4 &uc 0x15F 0x15E &trans        &trans          &uc 0x11F 0x11E &trans       &trans        &trans        &uc UC_SET_LINUX &trans
+                &trans        &trans        &uc 0xE7 0xC7   &trans          &uc 0xDF 0x1E9E &trans       &uc UC_SET_MACOS &trans     &trans        &trans
+                                                            &trans          &trans         &trans        &trans
+            >;
+        };
     };
 };
