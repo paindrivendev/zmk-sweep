@@ -71,13 +71,13 @@
 // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
 // │ F9  │ F10 │     │ F11 │ F12 │   │     │  1  │  2  │  3  │     │
 // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
-//                   │     │     │   │  0  │     │
+//                   │     │     │   │  0  │  0  │
 //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
                 &kp F1        &kp F2        &trans          &kp F3          &kp F4      &trans        &kp N7        &kp N8        &kp N9        &trans     
                 &kp F5        &kp F6        &trans          &kp F7          &kp F8      &trans        &kp N4        &kp N5        &kp N6        &trans 
                 &kp F9        &kp F10       &trans          &kp F11         &kp F12     &trans        &kp N1        &kp N2        &kp N3        &trans
-                                                            &trans          &trans      &kp N0        &trans 
+                                                            &trans          &trans      &kp N0        &kp N0 
             >;
         };
         
